@@ -18,6 +18,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/laravel/framework" />
@@ -126,6 +129,7 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1fzfMS9HcXuHnm8BVcTiy3mQGMa" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -155,6 +159,7 @@
       <workItem from="1597226100871" duration="2996000" />
       <workItem from="1597246600976" duration="5341000" />
       <workItem from="1597288450699" duration="1198000" />
+      <workItem from="1598155450946" duration="596000" />
     </task>
     <servers />
   </component>
