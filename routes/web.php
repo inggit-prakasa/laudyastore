@@ -14,13 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/dashboard','AdminController@dashboard');
+//Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'ProductController@dashboard');
 Route::get('/product','ProductController@index');
 Route::get('/product/add','ProductController@add');
 Route::post('/product/create','ProductController@create');
@@ -35,3 +35,17 @@ Route::post('/transaction/increasecart/{id}', 'TransactionController@increasecar
 Route::post('/transaction/decreasecart/{id}', 'TransactionController@decreasecart');
 Route::get('/transaction/history','TransactionController@history');
 Route::post('/transaction/clear','TransactionController@clear');
+Route::get('/product/color','ColourController@index');
+Route::get('/product/color/add','ColourController@add');
+Route::post('/product/color/create','ColourController@create');
+Route::get('/product/color/{id}/edit','ColourController@edit');
+Route::get('/product/color/{id}/delete','ColourController@delete');
+Route::post('/product/color/{id}/update','ColourController@update');
+Route::get('/product/download','ProductController@download')->name('product.download');
+Route::post('/product/import','ProductController@import')->name('product.import');
+Route::prefix('product')->group(function () {
+    Route::resource('categories','CategoryController');
+    Route::resource('size','SizeController');
+});
+
+

@@ -16,9 +16,12 @@
         "haruncpi/laravel-id-generator": "^1.0",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^2.1"
+        "laravel/ui": "^2.1",
+        "maatwebsite/excel": "^3.1",
+        "yish/imgur": "^1.1"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.8",
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9.1",
         "mockery/mockery": "^1.3.1",
