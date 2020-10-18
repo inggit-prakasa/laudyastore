@@ -103,24 +103,26 @@
                                 <div class="col-md-12">
                                     <div class="form-group form-group-defult">
                                         <label for="image">Gambar</label>
-                                        <input type="file" class="form-control" id="image" name="image" accept="image/*"
-                                        onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0]); document.getElementById('preview').style.display = 'none'">
+{{--                                        <input type="file" class="form-control" id="image" name="image" accept="image/*"--}}
+{{--                                        onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0]); document.getElementById('preview').style.display = 'none'">--}}
+                                            <input type="text" class="form-control" id="image" name="image" value="{{ $product->image }}"
+                                               onchange="document.getElementById('output').src = document.getElementById('image').value; document.getElementById('preview').style.display = 'none'">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <img id="output" src="" class="img-fluid" width="200px">
-                                    <img src="{{ asset('storage/images/' . $product->image)}} " class="img-fluid" alt="image" width="200px" id='preview'>
+                                    <img src="{{ $product->image }} " class="img-fluid" alt="image" width="200px" id='preview'>
                                 </div>
                             </div>
-                        </div>
                         <div class="card-action">
                             <button type="submit" class="btn btn-success">Update</button>
                         </div>
                     </form>
                 </div>
             </div>
+            </div>
         </div>
-        <div class="row row-card-no-pd">
+        <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">

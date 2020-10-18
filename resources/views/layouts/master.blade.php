@@ -22,6 +22,18 @@
 		});
 	</script>
 
+    <script>
+        @if(Session::has('success'))
+            console.log('ini bisa');
+            $('.top-right').notify({
+                message: { text: "{{ Session::get('success') }}" }
+            }).show();
+            @php
+                Session::forget('success');
+            @endphp
+        @endif
+    </script>
+
 	<!-- CSS Files -->
 	<link rel="stylesheet" href="{{ asset("css/bootstrap.min.css") }}">
 	<link rel="stylesheet" href="{{ asset("css/atlantis.min.css") }}">
@@ -144,7 +156,6 @@
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="#">Account Setting</a>
 										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" href="#">Logout</a>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -205,9 +216,9 @@
 					</div>
 					<ul class="nav nav-primary">
 						<li class="nav-item">
-							<a href="/product">
+							<a href="/dashboard">
 								<i class="fas fa-home"></i>
-								<p>Dashboard</p>
+								<p>Beranda</p>
 							</a>
 						</li>
 						<li class="nav-section">
@@ -240,10 +251,15 @@
 										</a>
 									</li>
 									<li>
-										<a href="/product/color">
+										<a href="/product/size">
 											<span class="sub-item">Ukuran</span>
 										</a>
 									</li>
+                                    <li>
+                                        <a href="/product/categories">
+                                            <span class="sub-item">Kategori</span>
+                                        </a>
+                                    </li>
 								</ul>
 							</div>
 						</li>
@@ -288,7 +304,7 @@
 			<footer class="footer">
 				<div class="container-fluid">
 					<div class="copyright ml-auto">
-						2020, <i class="fa fa-heart heart text-danger"></i> by Inggit prakasa</a>
+						2020, <i class="fa fa-heart heart text-danger"></i> by Inggit prakasa
 					</div>
 				</div>
 			</footer>
@@ -306,11 +322,14 @@
 	<script src="{{asset("js/plugin/jquery-scrollbar/jquery.scrollbar.min.js")}}"></script>
 	<!-- Datatables -->
 	<script src="{{asset("js/plugin/datatables/datatables.min.js")}}"></script>
+    <!-- Bootstrap Notify -->
+    <script src="{{ asset('js/plugin/bootstrap-notify/bootstrap-notify.min.js')}}"></script>
 	<!-- Atlantis JS -->
 	<script src="{{asset("js/atlantis.min.js")}}"></script>
 	<!-- Atlantis DEMO methods, don't include it in your project! -->
 	<script src="{{asset("js/setting-demo2.js")}}"></script>
 	<script >
+
 		$(document).ready(function() {
 			$('#basic-datatables').DataTable({
 			});

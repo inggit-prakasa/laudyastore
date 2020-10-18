@@ -5,7 +5,7 @@ use App\HistoryProduct;
 use App\Product;
 use App\ProductTransaction;
 use App\Transaction;
-use Darryldecode\Cart\Cart;
+use Cart;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\Request;
 
@@ -26,9 +26,9 @@ class TransactionController extends Controller
         $products = Product::all();
         $id = 1;
 
-        $items = \Cart::session($id)->getContent();
+        $items = Cart::session($id)->getContent();
 
-        if(\Cart::isEmpty()){
+        if(Cart::isEmpty()){
             $cart_data = [];
         }
         else{
@@ -45,7 +45,7 @@ class TransactionController extends Controller
             $cart_data = collect($cart)->sortBy('created_at');
         }
 
-        $total = \Cart::session($id)->getTotal();
+        $total = Cart::session($id)->getTotal();
 
         return view('pos.index',compact('products','cart_data','total'));
     }
@@ -54,19 +54,19 @@ class TransactionController extends Controller
 
         $product = Product::find($id);
         $id1 = 1;
-        $cart = \Cart::session($id1)->getContent();
+        $cart = Cart::session($id1)->getContent();
         $cek_itemId = $cart->whereIn('id', $id);
 
         if($cek_itemId->isNotEmpty()){
             if($product->quantity == $cek_itemId[$id]->quantity){
                 return redirect()->back()->with('error','jumlah item kurang');
             }else{
-                \Cart::session($id1)->update($id, array(
+                Cart::session($id1)->update($id, array(
                     'quantity' => 1
                 ));
             }
         }else{
-             \Cart::session($id1)->add(array(
+             Cart::session($id1)->add(array(
             'id' => $id,
             'name' => $product->name,
             'price' => $product->price,
@@ -86,13 +86,13 @@ class TransactionController extends Controller
         $product = Product::find($id);
         $id1 =1;
 
-        $cart = \Cart::session($id1)->getContent();
+        $cart = Cart::session($id1)->getContent();
         $cek_itemId = $cart->whereIn('id', $id);
 
         if($cek_itemId[$id]->quantity == 1){
-            \Cart::session($id1)->remove($id);
+            Cart::session($id1)->remove($id);
         }else{
-            \Cart::session($id1)->update($id, array(
+            Cart::session($id1)->update($id, array(
             'quantity' => array(
                 'relative' => true,
                 'value' => -1
@@ -106,13 +106,13 @@ class TransactionController extends Controller
         $product = Product::find($id);
         $id1 = 1;
 
-        $cart = \Cart::session($id1)->getContent();
+        $cart = Cart::session($id1)->getContent();
         $cek_itemId = $cart->whereIn('id', $id);
 
         if($product->qty == $cek_itemId[$id]->quantity){
             return redirect()->back()->with('error','jumlah item kurang');
         }else{
-            \Cart::session($id1)->update($id, array(
+            Cart::session($id1)->update($id, array(
             'quantity' => array(
                 'relative' => true,
                 'value' => 1
@@ -140,15 +140,15 @@ class TransactionController extends Controller
 
     public function removeProductCart($id){
         $id1 =1;
-        \Cart::session($id1)->remove($id);
+        Cart::session($id1)->remove($id);
 
         return redirect()->back();
     }
 
     public function bayar(){
         $id1 = 1;
-        $cart_total = \Cart::session($id1)->getTotal();
-        $all_cart = \Cart::session($id1)->getContent();
+        $cart_total = Cart::session($id1)->getTotal();
+        $all_cart = Cart::session($id1)->getContent();
 
         $filterCart = $all_cart->map(function($item){
             return [
@@ -194,7 +194,7 @@ class TransactionController extends Controller
             ]);
         }
 
-        \Cart::session($id1)->clear();
+        Cart::session($id1)->clear();
 
         return redirect()->back()->with('success','Transaksi Berhasil dilakukan Tahu Coding | Klik History untuk print');
     }

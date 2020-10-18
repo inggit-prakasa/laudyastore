@@ -28,9 +28,42 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex align-items-center">
-                            <h4 class="card-title">List Produk</h4>
-                            <a class="btn btn-primary btn-round ml-auto" href="/product/add">
-                                <i class="fa fa-plus"></i>
+                            <h4 class="mr-auto p-2 card-title">List Produk</h4>
+                            <button type="button" class="btn btn-info m-2" data-toggle="modal" data-target="#importExcel">
+                                <i class="fa fa-upload pr-2"></i>
+                                IMPORT EXCEL
+                            </button>
+                            <!-- Import Excel -->
+                            <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <form method="post" action="{{ route('product.import') }}" enctype="multipart/form-data">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                @csrf
+
+                                                <label>Pilih file excel</label>
+                                                <div class="form-group">
+                                                    <input type="file" name="file" required="required">
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Import</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <a class="btn btn-secondary m-2" href="{{ route('product.download') }}">
+                                <i class="fa fa-download pr-2"></i>
+                                Download Template
+                            </a>
+                            <a class="btn btn-primary m-2" href="/product/add">
+                                <i class="fa fa-plus pr-2"></i>
                                 Tambah Produk
                             </a>
                         </div>
@@ -44,7 +77,7 @@
                                         <h3 class="modal-title">
                                             <span class="fw-mediumbold">
                                             Tambah Produk
-                                            </span> 
+                                            </span>
                                         </h3>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
@@ -112,7 +145,7 @@
                                             </div>
                                         </form>
                                     </div>
-                                        
+
                                     <div class="modal-footer no-bd">
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary">Tambah</button>
@@ -122,7 +155,19 @@
                                 </div>
                             </div>
                         </div>
-        
+                        @if (session('status'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif
+
+                        @if (isset($errors) && $errors->any())
+                            <div class="alert alert-danger">
+                                @foreach ($errors->all() as $error)
+                                    {{ $error }}
+                                @endforeach
+                            </div>
+                        @endif
                         <div class="table-responsive">
                             <table id="add-row" class="display table table-striped table-hover" >
                                 <thead>
@@ -139,12 +184,12 @@
                                 <tbody>
                                     @foreach ($products as $product)
                                         <tr>
-                                            <td><img src="{{ asset('storage/images/'. $product->image)}} " alt="Product" width="100px"></td>
+                                            <td><img src="{{ 'http://barcodes4.me/barcode/c128b/'. $product->id .'1234234.png' }}" height="100" alt="Product" class="p-2"></td>
                                             <td>{{ $product->name }} </td>
                                             <td>{{ $product->color }} </td>
                                             <td>{{ $product->size }}</td>
                                             <td>{{ $product->quantity }}</td>
-                                            <td>{{ $product->price }} </td>
+                                            <td>{{ 'Rp. ' . number_format($product->price, 2, ".", ",") }} </td>
                                             <td>
                                                 <div class="form-button-action">
                                                     <a href="/product/{{ $product->id }}/edit" class="btn btn-info btn-sm">EDIT</a>
