@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -26,7 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|HistoryProduct whereTipe($value)
  * @method static \Illuminate\Database\Eloquent\Builder|HistoryProduct whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|HistoryProduct whereUserId($value)
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 
 class HistoryProduct extends Model
